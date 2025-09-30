@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import SingleImageUpload from '../ui/SingleImageUpload';
 import MultipleImageUpload from '../ui/MultipleImageUpload';
+import Navigation from '../components/Navigation';
+import GeminiChatButton from '../components/GeminiChatButton';
 
 const UploadPage: React.FC = () => {
 	const [activeTab, setActiveTab] = useState<'single' | 'multiple'>('single');
@@ -10,8 +12,9 @@ const UploadPage: React.FC = () => {
 	>([]);
 
 	return (
-		<div className='upload-page'>
-			<div className='container'>
+		<div className='upload-page page-layout'>
+			<Navigation />
+			<div className='container page-content'>
 				<h1>Image Upload Demo</h1>
 				<p>Demo upload ảnh sử dụng Cloudinary</p>
 
@@ -78,6 +81,9 @@ const UploadPage: React.FC = () => {
 					)}
 				</div>
 			</div>
+
+			{/* Gemini Chat Button */}
+			<GeminiChatButton />
 		</div>
 	);
 };

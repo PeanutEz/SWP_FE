@@ -3,12 +3,14 @@ import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 import { logoutUser, getStoredTokens } from '../utils/auth.service';
 import Navigation from '../components/Navigation';
+import GeminiChat from '../components/GeminiChat';
 
 const HomePage: React.FC = () => {
 	const navigate = useNavigate();
 	const { user, logout, isAuthenticated } = useAuth();
 	const [loading, setLoading] = useState(false);
 	const [error, setError] = useState('');
+	const [isChatOpen, setIsChatOpen] = useState(false);
 
 	// Redirect to login if not authenticated
 	React.useEffect(() => {
@@ -45,9 +47,9 @@ const HomePage: React.FC = () => {
 	}
 
 	return (
-		<div className='home-page'>
+		<div className='home-page page-layout'>
 			<Navigation />
-			<div className='home-container'>
+			<div className='home-container page-content'>
 				{/* Header */}
 				<header className='home-header'>
 					<div className='header-content'>
@@ -142,6 +144,15 @@ const HomePage: React.FC = () => {
 							<p>Quản lý danh sách xe điện (Coming soon)</p>
 						</div>
 
+						<div
+							className='feature-card'
+							onClick={() => setIsChatOpen(true)}
+							style={{ cursor: 'pointer' }}>
+							<div className='feature-icon'>🤖</div>
+							<h3>Chat với Gemini AI</h3>
+							<p>Hỏi đáp về xe điện và công nghệ với AI</p>
+						</div>
+
 						<div className='feature-card'>
 							<div className='feature-icon'>📊</div>
 							<h3>Thống kê</h3>
@@ -160,6 +171,20 @@ const HomePage: React.FC = () => {
 					</p>
 				</footer>
 			</div>
+
+			{/* Gemini Chat */}
+			<GeminiChat
+				isOpen={isChatOpen}
+				onClose={() => setIsChatOpen(false)}
+			/>
+
+			{/* Floating Chat Button */}
+			<button
+				className='gemini-chat-trigger'
+				onClick={() => setIsChatOpen(true)}
+				title='Chat với Gemini AI'>
+				🤖
+			</button>
 		</div>
 	);
 };
